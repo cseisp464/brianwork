@@ -3,13 +3,18 @@ package com.cseisp464.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.User;
 
 /**
  * Servlet implementation class LoginServlet
@@ -31,6 +36,10 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		if(session == null){
+			response.sendRedirect("login.jsp");
+		}
 	}
 
 	/**
@@ -44,35 +53,60 @@ public class LoginServlet extends HttpServlet {
 		
 		out.println("<html><body>");
 		
+		// Retrieving the username and password form the POST data.
 		String uname = request.getParameter("username");
 		String passwd1 = request.getParameter("password1");
+		String remember_me = request.getParameter("rememberMe");
 		
+		// Session
+		HttpSession session = request.getSession();
+		session.setAttribute("username", uname);
+		
+		// Handling bad form data in order to avoid Null Pointer Exception
+		if(remember_me == null){
+			remember_me = "off";
+		}
+		
+		System.out.println(remember_me);
+		
+		// Creating an instance of the user class with project's root path as the parameter to the constructor
 		Users newUser = new Users(this.getServletContext().getRealPath("/"));
 		
-		if(!newUser.checkIfUserExists(uname)){
-			// User not present, so redirect the user to registration page
-			response.sendRedirect("signup.jsp");
-			
-			//request.setAttribute("username_error", "Username not found in our records! Please Sign up.");
-			//RequestDispatcher rd = request.getRequestDispatcher("login.jsp") ;
-			//rd.include(request, response);
-			
-		}else{
-			// User exists, so verify password
-			try {
-				if(newUser.authenticateUser(uname,passwd1)){
-					response.sendRedirect("flightSearchQuery.jsp");
+		// Check if the username exists
+		try {
+			if(!newUser.checkIfValueExists("username", uname)){
+				// User not present, so redirect the user to registration page
+				response.sendRedirect("signup.jsp");
+				
+			}else{
+				// Setting cookie
+				if(remember_me.equals("on")){
+					Cookie c = new Cookie("username",uname);
+					// Setting cookie's age to one day - 24 hours
+					c.setMaxAge(24*60*60); 
+					response.addCookie(c);
 				}
-				else{
-					request.setAttribute("password_error", "Incorrect password! Try again.");
-					RequestDispatcher rd = request.getRequestDispatcher("login.jsp") ;
-					rd.include(request, response);
+					
+				
+				// User exists, so verify password
+				try {
+					if(newUser.authenticateUser(uname,passwd1)){
+						response.sendRedirect("flightSearchQuery.jsp");
+					}
+					else{ // Incorrect password, so send an error message
+						request.setAttribute("password_error", "Incorrect password! Try again.");
+						RequestDispatcher rd = request.getRequestDispatcher("login.jsp") ;
+						rd.include(request, response);
+					}
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
 			}
-			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		out.println("</html></body>");

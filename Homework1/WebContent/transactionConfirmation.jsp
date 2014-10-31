@@ -35,129 +35,124 @@ line-height: 40px;
 
 </head>
 <body>
+<%@ page errorPage="transactonError.jsp" %>
 
-	<nav id="myNavbar" class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Airline Reservation System</a>
-			</div>
-		</div>
-	</nav>
+<%@ include file="/WEB-INF/header.jsp" %>
+
+<%
+	// checking if session exists, if not then redirect to login page
+		if(session.getAttribute("username") == null){
+			response.sendRedirect("login.jsp");
+		}
+	
+	%>
+	
+
 	
 	<div class="container">
 		<div class="jumbotron">
-			<h2 align="center">Purchase Confirmed!</h2> <br>
+		
+			<h2 align="center">Your purchase has been confirmed!</h2> <br>
 			
-			<form action="transactionConfirmation.jsp" method="post" class="form-horizontal">
+			
 				<div class ="row">
-					<div class="col-md-6 col-md-offset-3">
-						<legend><strong>Flight Details</strong></legend>
+					<div class="col-md-12">
+						<legend><strong>Transaction Details</strong></legend>
 						
-						<strong> <span class="sourceFont">Lincoln</span> - Omaha - Kansas - Chicago - <span class="destinationFont"> Florida </span></strong>
+						<strong> From: <span class="sourceFont"><%= session.getAttribute("source") %></span><br/>
+						To: <span class="destinationFont"> <%= session.getAttribute("destination") %> </span></strong>
 						
 						<table class="table table-striped">
 					       
 					       <tbody>
 					       	<tr>
-					       		<th>First Name</th>
-					       		<td>Place</td>
+					       		<th>Flight No.</th>
+					       		<th>Plane No.</th>
+					       		<th>Departure Time</th>
+					       		<th>Arrival Time</th>
+					       		<th>Number of Stops</th>
+					       		<th>Total Duration</th>
+					       		<th>Number of seats</th>
+					       		<th>Total Cost</th>
 					       	</tr>
 					       </tbody>
 					       
 					       <tbody>
 					       	<tr>
-					       		<th>Last Name</th>
-					       		<td>Holder</td>
+					       		<td><%= session.getAttribute("flight_number") %></td>
+					       		<td><%= session.getAttribute("plane_number") %></td>
+					       		<td><%= session.getAttribute("deptTime") %></td>
+					       		<td><%= session.getAttribute("arrTime") %></td>
+					       		<td><%= session.getAttribute("stops") %> </td>
+					       		<td><%= session.getAttribute("duration") %></td>
+					       		<td><%= session.getAttribute("confirmed_number_of_seats") %></td>
+					       		<td>$<%= session.getAttribute("total_cost") %></td>
 					       	</tr>
 					       </tbody>
 					       
-					       <tbody>
-					       	<tr>
-					       		<th>Ticket No.</th>
-					       		<td>56<td>
-					       	</tr>
-					       </tbody>
 					       
-					        <tbody>
-					            <tr>
-					            	<th>Flight No.</th>
-					                <td>1</td>
-					            </tr>
-					        </tbody>
-					        
-					        <tbody>
-					            <tr>
-					            	<th>Flight Date</th>
-					                <td>09/21/2014</td>
-					            </tr>
-					        </tbody>
-					        
-					        <tbody>
-					            <tr>
-					            	<th>Departure Time</th>
-					                <td>13:30</td>
-					            </tr>
-					        </tbody>
-					        
-					        <tbody>
-					            <tr>
-					            	<th>Arrival Time</th>
-					                <td>20:30</td>
-					            </tr>
-					        </tbody>
-					        
-					        <tbody>
-					            <tr>
-					            	<th>Number of Stops</th>
-					                <td>3  
-					                <br>   Lincoln (13:30) - Omaha (14:00)
-					                <br>   Omaha (14:30) - Kansas (16:30) 
-					                <br>   Kansas (17:00) - Chicago (20:30)</td>
-					            </tr>
-					        </tbody>
-					        
-					        <tbody>
-					            <tr>
-					            	<th>Cost</th>
-					                <td>$500</td>
-					            </tr>
-					        </tbody>
-					        
-					        <tbody>
-					            <tr>
-					            	<th>Type of Jet</th>
-					                <td>Airbus -780</td>
-					            </tr>
-					        </tbody>
-					        
-					        <tbody>
-					            <tr>
-					            	<th>Total Duration</th>
-					                <td>7 Hours 0 Min </td>
-					            </tr>
-					        </tbody>
-					        
-					        <tbody>
-					            <tr>
-					            	<th>Number of Seats</th>
-					                <td>1</td>
-								</tr>					        
-					        </tbody>
-					        
-					       <tbody>
-					       		<tr>
-					       			<th>Cost</th>
-					       			<td>$500</td>
-					       		</tr>
-					       </tbody>
+
 					   </table>
 					       
-					       <a href="flightSearchQuery.jsp" class="btn btn-warning">Home</a>
 					       
-					       </div>
+					   </div>
 				</div>
+			<form action="PrintingServlet" method="post" class="form-horizontal">
+				<div class ="row">
+					<div class="col-md-12">
+						<legend><strong>Passenger Details</strong></legend>
+					</div>
+					<div  class="col-md-3">
+						<div class="form-group">
+							<label for="firstname">First Name</label>
+							<input 
+								type="text" 
+								class="form-control" 
+								id="firstname" 
+								name="firstname"   
+								required autofocus>
+							</div>
+						</div>
+						<div  class="col-md-3">
+						<div class="form-group">
+							<label for="lastname">Last Name</label>
+							<input 
+								type="text" 
+								class="form-control" 
+								id="lastname" 
+								name="lastname"   
+								required autofocus>
+							</div>
+						</div>
+						<div  class="col-md-3">
+						<div class="form-group">
+							<label for="age">Age</label>
+							<input 
+								type="text" 
+								class="form-control" 
+								id="age" 
+								name="age"   
+								required autofocus>
+								</div>
+						</div>
+						<div  class="col-md-3">
+							<div class="form-group">
+							<label for="gender">Gender</label>
+							<input 
+								type="text" 
+								class="form-control" 
+								id="gender" 
+								name="gender"   
+								required autofocus>
+								</div>
+						</div>
+
+						<a href="flightSearchQuery.jsp" class="btn btn-warning">Home</a>
+					    <button type="submit" class="btn btn-default pull-right">Print</a>
+
+			
 			</form>
+			
 			
 			<br>
 		</div>

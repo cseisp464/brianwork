@@ -30,15 +30,14 @@ $(document).ready(function(){
 
 </head>
 <body>
-
-	<nav id="myNavbar" class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Airline Reservation System</a>
-			</div>
-		</div>
-	</nav>
+<%@ include file="/WEB-INF/header.jsp" %>
+<%
+	// checking if session exists, if not then redirect to login page
+		if(session.getAttribute("username") == null){
+			response.sendRedirect("login.jsp");
+		}
+	
+	%>
 	
 	<div class="container">
 		<div class="jumbotron">
@@ -69,10 +68,18 @@ $(document).ready(function(){
 								<td>36</td>
 								<td>9/14/2014</td>
 							</tr>
+							
+							<tr>
+								<td>3</td>
+								<td>16</td>
+								<td>10/14/2014</td>
+							</tr>
 						</tbody>
 					</table>
 										
 					<a href="flightSearchQuery.jsp" class="btn btn-success">Home</a>
+					
+					<a href="login.jsp" class="btn btn-default pull-right">Logout</a>
 
        </div>
 				</div>
