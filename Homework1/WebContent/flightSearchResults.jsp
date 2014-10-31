@@ -68,7 +68,11 @@ color: Green;
 			        	
 						<%
 						List<Flights> l =(ArrayList<Flights>) session.getAttribute("flightsBean");
-			
+						
+						<if(l.size() == 0){ 
+							response.sendRedirect("noResults.jsp");	
+						 } 
+						
 						for(int i=0;i<l.size();i++){ %>
 						<tr>
 						<%
