@@ -37,6 +37,9 @@ line-height: 40px;
 }
 </style>
 
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -50,14 +53,40 @@ $(document).ready(function(){
 			alert("Account number should be of 10-digts");
 			event.preventDefault();
 		}	
-	});
-	
-	
-	
+	});	
 });
-
-
 </script>
+
+<%/*Trying to make the ajax call, sending appropriate data*/%>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    //var numberOfTickets = $("#number_of_seats").val();
+	    
+    
+    $("#confirm_function").click(function() {
+	
+	var accountnumber = $('#account_number').val();
+	var routingnumber = $('#routing_number').val();
+	var totalCost = $('#total_cost').val();
+	
+	$.post("BankingServlet",
+	{
+		accountnumber: accountnumber,
+		routingnumber: routingnumber,
+		totalCost: totalCost
+	}, function(data, status) {
+		if( data == "Transaction Successful"){
+			response.sendRedirect("transactionConfirmation.jsp");
+		} else {
+			response.sendRedirect("transactionError.jsp");
+		}
+	  });
+    })});
+    
+    
+</script>
+
 
 </head>
 <body>
@@ -86,6 +115,21 @@ $(document).ready(function(){
 					
 	
 						<table class="table table-striped">
+					      	<tbody>
+					      		<tr>
+					      			<th>From</th>
+					      			<td><%= session.getAttribute("source") %> </td>
+					      		</tr>
+					      	
+					      	<tbody>
+					      		<tr>
+					      			<th>To</th>
+					      			<td><%= session.getAttribute("destination") %></td>
+					      		</tr>
+					      	</tbody>
+					      	
+					      	</tbody>
+					      
 					        <tbody>
 					            <tr>
 					            	<th>Plane No.</th>
@@ -149,7 +193,7 @@ $(document).ready(function(){
 					       		</tr>
 					       </tbody>
 					       
-					       <div class="form-group">
+					         <div class="form-group">
 							<label for="account_holder_name">Account Holder Name</label> 		
 							<input 
 								type="text" 
@@ -179,9 +223,10 @@ $(document).ready(function(){
 								name="account_number"
 								required> 
 						</div>
+					       
 				</table>
 				
-				<button type="submit" id="submit" class="btn btn-primary">Confirm Transaction</button>
+				<button class="btn btn-primary" name = "confirm_function" id = "confirm_function" value= "confirm_function">Confirm Transaction</button>
 						&nbsp;&nbsp;
 						<a href="flightSearchQuery.jsp" class="btn btn-success">Cancel</a>
 						&nbsp;&nbsp;

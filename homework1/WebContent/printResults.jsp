@@ -32,7 +32,7 @@ $(document).ready(function(){
 
 </head>
 <body>
-
+<%@ page errorPage="/WEB-INF/noValuesInlistError.jsp" %>
 <%@ include file="/WEB-INF/header.jsp" %>
 
 
@@ -90,13 +90,6 @@ $(document).ready(function(){
 					       	</tr>
 					       </tbody>
 
-					       <tbody>
-					       	<tr>
-					       		<th>Flight No.</th>
-					       		<td><%= session.getAttribute("flight_number") %></td>
-					       	</tr>
-					       
-					       </tbody>
 					       <tbody>	
 					       	<tr>
 					       		<th>Plane No.</th>
@@ -133,6 +126,14 @@ $(document).ready(function(){
 					       		<td><%= session.getAttribute("confirmed_number_of_seats") %></td>
 					       	</tr>
 					       	</tbody>
+					       	
+					       	 <tbody>
+						            <tr>
+						            	<th>Ticket Class</th>
+						                <td><%= session.getAttribute("ticket_class") %></td>
+						            </tr>
+						        </tbody>
+						        
 					       <tbody>
 					       	<tr>
 					       		<th>Total Cost</th>
@@ -141,8 +142,7 @@ $(document).ready(function(){
 					       	</tbody>
 
 					   </table>
-					       
-					       
+
 					   </div>
 				</div>
 		

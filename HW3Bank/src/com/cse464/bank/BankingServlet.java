@@ -1,4 +1,4 @@
-package com.cseisp464.servlets;
+package com.cse464.bank;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,13 +17,13 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class TransactionConfirmationServlet
  */
 @WebServlet("/TransactionConfirmationServlet")
-public class TransactionConfirmationServlet extends HttpServlet {
+public class BankingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TransactionConfirmationServlet() {
+    public BankingServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -64,7 +64,7 @@ public class TransactionConfirmationServlet extends HttpServlet {
 		
 		System.out.println("Ticket cost: "+ ticket_cost);
 		
-		Transactions t = new Transactions();
+		Banking t = new Banking();
 		try {
 			if(t.validateBankDetails(acc_number, routing_number, ticket_cost)){ // validated
 				
@@ -85,10 +85,10 @@ public class TransactionConfirmationServlet extends HttpServlet {
 				if(success_flag){
 					error_message = null;
 					
-					// Addding Booking Details
-					Bookings b = new Bookings(); 
+					// Adding Booking Details
+					/*Bookings b = new Bookings(); 
 					booking_id = b.addingBookingDetails(confirmed_number_of_seats, acc_number, username, ticket_cost);
-					b.addEntriesInBookingFlightsTable(booking_id, flight_id);
+					b.addEntriesInBookingFlightsTable(booking_id, flight_id);*/
 					
 					System.out.println("old balance: "+ t.getBalance());
 					

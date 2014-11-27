@@ -35,10 +35,9 @@ line-height: 40px;
 
 </head>
 <body>
-<%@ page errorPage="transactonError.jsp" %>
 
 <%@ include file="/WEB-INF/header.jsp" %>
-
+<%@ page errorPage="/WEB-INF/transactionErrors.jsp" %>
 <%
 	// checking if session exists, if not then redirect to login page
 		if(session.getAttribute("username") == null){
@@ -51,6 +50,25 @@ line-height: 40px;
 	
 	<div class="container">
 		<div class="jumbotron">
+		<% 
+			if (request.getAttribute("error_message")!=null){ %>
+				<h2 align="center">Transaction was  not successful!</h2>
+				<br/>
+				<br/>
+				<center>
+					<h5> Error(s):</h5>
+					<strong> <%= request.getAttribute("error_message")%></strong>
+					
+					<br/><br/>
+					<a href="transaction.jsp" class="btn btn-warning">Back to Transaction Page</a>
+				</center>
+				
+				
+				
+				<%}
+			else{
+		%>
+		
 		
 			<h2 align="center">Your purchase has been confirmed!</h2> <br>
 			
@@ -147,12 +165,11 @@ line-height: 40px;
 								</div>
 						</div>
 
-						<a href="flightSearchQuery.jsp" class="btn btn-warning">Home</a>
-					    <button type="submit" class="btn btn-default pull-right">Print</a>
+					    <center><button type="submit" class="btn btn-default">Print</a></center>
 
 			
 			</form>
-			
+			<%}%>
 			
 			<br>
 		</div>

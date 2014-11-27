@@ -49,7 +49,25 @@ $(document).ready(function(){
 	                     "IAH-George Bush Intercontinental Airport,TX,US",
 	                     "HOU-William P Hobby Airport,TX,US",
 	                     "IND-Indianapolis International Airport,IN,US",
-	                     "MCI-Kansas City International Airport, MO,US",
+	                     "MCI-Kansas City International Airport,MO,US",
+	                     "MCO-Orlando International Airport,FL,US",
+	                     "PHL-Philadelphia International Airport,PA,US",
+	                     "PHX-Phoenix Sky Harbor International Airport,AZ,US", 
+	                     "PIT-Pittsburgh International Airport,PA,US", 
+	                     "PDX-Portland International Airport,OR,US", 
+	                     "RDU-Raleigh-Durham International Airport,NC,US", 
+	                     "SMF-Sacramento International Airport,CA,US", 
+	                     "SLC-Salt Lake City International Airport,UT,US", 
+	                     "SAT-San Antonio International Airport,TX,US", 
+	                     "SAN-San Diego International Airport,CA,US", 
+	                     "SFO-San Francisco International Airport,CA,US", 
+	                     "SJC-San Jose International Airport,CA,US", 
+	         			 "SNA-John Wayne Airport,CA,US", 
+	         			 "SEA-Seattle-Tacoma International Airport,WA,US", 
+	         			 "STL-Lambert-St. Louis International Airport,MO,US", 
+	         			 "TPA-Tampa International Airport,FL,US", 
+	         			 "IAD-Washington Dulles International Airport,VA,US", 
+	         			 "DCA-Ronald Reagan Washington National Airport,VA,US"
 	                   ];
 	
 	//airport iata codes
@@ -211,7 +229,7 @@ $(document).ready(function(){
 							</div>
 						</div>
 						
-						<button type="submit" id="search" class="btn btn-primary">Search</button>					
+						<button type="submit" id="search" class="btn btn-primary">Search</button>
 						
 						<!-- <a href="bookingHistory.jsp" class="btn btn-success">View my Booking History</a>
 						

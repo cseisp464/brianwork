@@ -35,7 +35,7 @@ color: Green;
 </style>
 </head>
 <body>
-
+<%@ page errorPage="/WEB-INF/noValuesInlistError.jsp" %>
 	<%@ include file="/WEB-INF/header.jsp" %>
 	
 	<%
@@ -69,11 +69,9 @@ color: Green;
 						<%
 						List<Flights> l =(ArrayList<Flights>) session.getAttribute("flightsBean");
 						
-						<if(l.size() == 0){ 
-							response.sendRedirect("noResults.jsp");	
-						 } 
-						
 						for(int i=0;i<l.size();i++){ %>
+						
+						
 						<tr>
 						<%
 						String flight_number = l.get(i).getFlight_number();
@@ -106,6 +104,7 @@ color: Green;
 						<td> <%=duration %></td>
 						<td><%=l.get(i).getOperator_name() %></td>
 						</tr>
+						
 						
 						<%} %>
 						
