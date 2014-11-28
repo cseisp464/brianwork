@@ -65,19 +65,27 @@ $(document).ready(function() {
 	    
     
     $("#confirm_function").click(function() {
-	
-	var accountnumber = $('#account_number').val();
-	var routingnumber = $('#routing_number').val();
-	var totalCost = $('#total_cost').val();
+    
+    var account_holder_name = $("#account_holder_name").val();
+	var account_number = $('#account_number').val();
+	var routing_number = $('#routing_number').val();
+	var total_cost = $('#total_cost').val();
 	
 	$.post("BankingServlet",
 	{
-		accountnumber: accountnumber,
-		routingnumber: routingnumber,
-		totalCost: totalCost
+		account_holder_name: account_holder_name,
+		account_number: account_number,
+		routing_number: routing_number,
+		total_cost: total_cost
+		
 	}, function(data, status) {
 		if( data == "Transaction Successful"){
+			
+			Bookings b = new Bookings(); 
+			booking_id = b.addingBookingDetails($('#confirmed_number_of_seats').val(), account_number, $('#username').val(), total_cost);
+			b.addEntriesInBookingFlightsTable($('#booking_id').val(), $('flight_id').val());
 			response.sendRedirect("transactionConfirmation.jsp");
+			
 		} else {
 			response.sendRedirect("transactionError.jsp");
 		}

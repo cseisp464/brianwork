@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,6 +48,9 @@ public class BankingServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
 		
 		// Retrieving the form POST data
 		String name = request.getParameter("account_holder_name");
@@ -103,10 +110,11 @@ public class BankingServlet extends HttpServlet {
 				error_message = "The Account Number entered is not valid! Please try again.";
 			}
 			
+			
 			request.setAttribute("error_message", error_message);
 			RequestDispatcher rd = request.getRequestDispatcher("transactionConfirmation.jsp") ;
 			rd.include(request, response);
-			
+			out.write("Transaction Successful");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

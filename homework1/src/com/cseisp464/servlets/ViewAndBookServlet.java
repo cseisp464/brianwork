@@ -114,7 +114,7 @@ public class ViewAndBookServlet extends HttpServlet {
 	session.setAttribute("flight_information_object", flight_information_object);
 	session.setAttribute("total_cost", total_cost);
 	session.setAttribute("confirmed_number_of_seats", number_of_seats_requested);
-	RequestDispatcher rd = request.getRequestDispatcher("transaction.jsp") ;
+	RequestDispatcher rd = request.getRequestDispatcher("confirmBooking.jsp") ;
 	rd.include(request, response);	
 		
 	}
