@@ -85,9 +85,10 @@ color: Green;
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd, hh:mm a");
 						String dept_time = sdf.format(new java.util.Date(l.get(i).getDeparture_time()));
 						String arvl_time = sdf.format(new java.util.Date(l.get(i).getArrival_time()));
+						int cost = l.get(i).getFlight_ticketPrice();
 						%>
 						<% int stops = 0; %>
-						<td>$<% int cost =  (int) (100 + Math.random() * 800); %> <%=cost %> <br/> 
+						<td>$<%=cost %> <br/> 
 							<form action="FlightSearchResultsServlet" method="post">
 								<input type="hidden" name="flight_number" value="<%=flight_number%>" />
 								<input type="hidden" name="plane_number" value="<%=plane_number%>" />
@@ -96,6 +97,7 @@ color: Green;
 								<input type="hidden" name="deptTime" value="<%=dept_time%>" />
 								<input type="hidden" name="arrTime" value="<%=arvl_time%>" />
 								<input type="hidden" name="duration" value="<%=duration%>" />
+								<input type="hidden" name="operator" value="<%=l.get(i).getOperator_name()%>" />
 								<button type="submit" class="btn btn-success">View and Book</button>
 							</form></td>
 						<td><%= dept_time %></td>

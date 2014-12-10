@@ -154,6 +154,25 @@ $(document).ready(function(){
 								required>
 						</div>
 						
+						<div class="form-group">
+							<label for="org">Organization</label>
+							<input
+								type="text"
+								class="form-control"
+								id="org"
+								name="org"
+								required>
+						</div>
+						
+						<div class="form-group">
+							<label for="orgadd">Organization Address</label>
+							<input
+								type="text"
+								class="form-control"
+								id="orgadd"
+								name="orgadd"
+								required>
+						</div>
 						
 						<button type="submit" id="submit" class="btn btn-primary">Sign up</button>
 					</div>

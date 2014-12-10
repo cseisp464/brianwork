@@ -168,12 +168,12 @@ public class Users {
         return sb.toString();
 	}
 	
-	private void connectDB(){
+	void connectDB(){
 		// Testing Database Connection using the JDBC Helper class
 		db = new JDBCHelper("cse.unl.edu", "spalusa", "spalusa", "Test@464");
 	}
 	
-	private void closeDB(){
+	 void closeDB(){
 		db.closeDBConnection();
 	}
 	
